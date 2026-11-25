@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { onRegistryChange } from '@/lib/registry';
 
 /**
  * Fetches immediately, then every `interval` ms while the tab is visible, and again
@@ -26,7 +27,9 @@ export function usePolling(fetcher, { interval = 10000 } = {}) {
     const id = setInterval(tick, interval);
     document.addEventListener('visibilitychange', tick);
     window.addEventListener('focus', tick);
+    const offRegistry = onRegistryChange(run);
     return () => {
+      offRegistry();
       clearInterval(id);
       document.removeEventListener('visibilitychange', tick);
       window.removeEventListener('focus', tick);

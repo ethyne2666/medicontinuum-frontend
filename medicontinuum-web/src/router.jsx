@@ -26,6 +26,7 @@ export const router = createBrowserRouter([
         element: <AppLayout />,
         children: [
           { path: 'dashboard', ...page(() => import('@/pages/Dashboard')) },
+          { path: 'summary', ...page(() => import('@/pages/Summary')) },
           { path: 'profile', ...page(() => import('@/pages/Profile')) },
           { path: 'family', ...page(() => import('@/pages/Family')) },
           { path: 'medicines', ...page(() => import('@/pages/Medicines')) },

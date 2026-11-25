@@ -3,11 +3,13 @@ import { AlertTriangle, CalendarCheck, Clock, PackageX } from 'lucide-react';
 import { Card, Img, PageHeader, ProgressRing, Stat, btnPrimary } from '@/components/ui';
 import { DoseRow } from '@/components/DoseRow';
 import { useDoses } from '@/hooks/useDoses';
-import { IMG, INVENTORY, USER } from '@/data/mock';
+import { IMG, USER } from '@/data/mock';
+import { usePatient } from '@/store/patientStore';
 import { isExpiring, isLow } from '@/utils/inventory';
 
 export default function Dashboard() {
   const { doses, mark, percent } = useDoses();
+  const { inventory: INVENTORY } = usePatient();
   const pending = doses.filter((d) => d.status === 'PENDING').length;
 
   return (

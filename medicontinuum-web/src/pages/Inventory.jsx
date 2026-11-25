@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { AlertTriangle, Boxes, PackageX, Plus } from 'lucide-react';
 import { Badge, Card, Field, PageHeader, Stat, Tabs, btnPrimary, inputCls } from '@/components/ui';
-import { DOSAGE_UNITS, INVENTORY, MEDICINES } from '@/data/mock';
+import { DOSAGE_UNITS, MEDICINES } from '@/data/mock';
+import { patientActions, usePatient } from '@/store/patientStore';
 import { formatDate } from '@/utils/date';
 import { isExpiring, isLow } from '@/utils/inventory';
 
@@ -11,14 +12,13 @@ const emptyBatch = {
 };
 
 export default function Inventory() {
-  const [items, setItems] = useState(INVENTORY);
+  const { inventory: items } = usePatient();
   const [filter, setFilter] = useState('ALL');
   const [showForm, setShowForm] = useState(false);
   const [batch, setBatch] = useState(emptyBatch);
 
   const update = (e) => setBatch((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  const consume = (id) =>
-    setItems((prev) => prev.map((i) => (i.id === id ? { ...i, quantity: Math.max(0, i.quantity - 1) } : i)));
+  const consume = (id) => patientActions.consumeBatch(id);
 
   const visible = items.filter((i) => filter === 'ALL' || (filter === 'LOW' ? isLow(i) : isExpiring(i)));
   const tabs = [
@@ -29,10 +29,7 @@ export default function Inventory() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setItems((prev) => [
-      { ...batch, id: crypto.randomUUID(), quantity: Number(batch.quantity), lowStockThreshold: Number(batch.lowStockThreshold) },
-      ...prev,
-    ]);
+    patientActions.addBatch({ ...batch, quantity: Number(batch.quantity), lowStockThreshold: Number(batch.lowStockThreshold) });
     setBatch(emptyBatch);
     setShowForm(false);
   };

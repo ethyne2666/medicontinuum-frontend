@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { APP_NAV } from '@/config/nav';
+import ChatWidget from '@/components/ChatWidget';
 
 export default function AppLayout() {
   return (
@@ -23,6 +24,7 @@ export default function AppLayout() {
       <main className="min-w-0 flex-1">
         <Outlet />
       </main>
+      <ChatWidget />
     </div>
   );
 }

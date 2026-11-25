@@ -27,7 +27,7 @@ export default function Organisations() {
   const needle = q.trim().toLowerCase();
   const items = all.filter((e) =>
     (filter === 'ALL' || typeOf(e) === filter) &&
-    (!needle || [e.name, e.city, e.state, e.specialization ?? '', typeLabel(e)].some((v) => v.toLowerCase().includes(needle))));
+    (!needle || [e.name, e.city, e.state, e.specialization ?? '', typeLabel(e), ...e.doctors.flatMap((d) => [d.name, d.specialization])].some((v) => v.toLowerCase().includes(needle))));
 
   const count = (t) => all.filter((e) => typeOf(e) === t).length;
   const tabs = FILTERS.map((f) => ({ ...f, count: f.value === 'ALL' ? all.length : count(f.value) }));
@@ -55,7 +55,7 @@ export default function Organisations() {
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative min-w-60 flex-1">
           <Search size={16} className="absolute left-3.5 top-3.5 text-slate-400" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by name, city or specialization" className={`${inputCls} pl-10`} />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by name, city, doctor or specialization" className={`${inputCls} pl-10`} />
         </div>
       </div>
       <div className="overflow-x-auto"><Tabs tabs={tabs} value={filter} onChange={setFilter} /></div>
@@ -92,7 +92,19 @@ export default function Organisations() {
                 <Badge tone="teal">{typeLabel(e)}</Badge>
                 {e.specialization && <Badge tone="sky">{e.specialization}</Badge>}
                 <Badge tone="green"><BadgeCheck size={12} className="mr-1" />Verified</Badge>
+                {e.sample && <Badge tone="amber">Demo listing</Badge>}
               </div>
+              {e.doctors.length > 0 && (
+                <div className="mt-4 rounded-xl bg-slate-50 p-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Doctors ({e.doctors.length})</p>
+                  <ul className="mt-1.5 space-y-1 text-sm">
+                    {e.doctors.slice(0, 4).map((d) => (
+                      <li key={d.id} className="flex items-center gap-2 text-slate-700"><Stethoscope size={13} className="shrink-0 text-teal-600" />{d.name}<span className="text-slate-400">· {d.specialization}</span></li>
+                    ))}
+                    {e.doctors.length > 4 && <li className="text-xs text-slate-400">+ {e.doctors.length - 4} more</li>}
+                  </ul>
+                </div>
+              )}
               <div className="mt-4 flex flex-1 items-end justify-between gap-2 border-t border-slate-100 pt-3 text-xs text-slate-400">
                 <span>Reg. no. {e.numberHint}</span>
                 {e.phone && <a href={`tel:${e.phone}`} className="inline-flex items-center gap-1 text-sm font-semibold text-teal-700 hover:underline"><Phone size={14} />Call</a>}
