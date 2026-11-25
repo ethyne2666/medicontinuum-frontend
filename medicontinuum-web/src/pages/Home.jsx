@@ -40,7 +40,7 @@ export default function Home() {
               <p className="text-sm text-slate-500">Trusted by patients and families</p>
             </div>
           </div>
-          <Img src={IMG.hero} alt="Doctor reviewing a prescription" className="h-80 w-full rounded-3xl shadow-xl lg:h-[28rem]" />
+          <Img src={IMG.hero} alt="Assorted medicines and pills" className="h-80 w-full rounded-3xl shadow-xl lg:h-[28rem]" />
         </div>
       </section>
 
@@ -58,7 +58,7 @@ export default function Home() {
       </section>
 
       <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 lg:grid-cols-2">
-        <Img src={IMG.family} alt="Family together at home" className="h-80 w-full rounded-3xl" />
+        <Img src={IMG.family} alt="Family holding hands together at the beach" className="h-80 w-full rounded-3xl" />
         <div>
           <h2 className="text-3xl font-bold text-slate-900">Built for the whole family</h2>
           <p className="mt-3 text-slate-600">

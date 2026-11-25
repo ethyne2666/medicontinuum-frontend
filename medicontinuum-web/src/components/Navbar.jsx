@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Bell, HeartPulse, Menu, X } from 'lucide-react';
+import { Bell, Menu, X } from 'lucide-react';
 import { btnPrimary } from '@/components/ui';
 
 const links = [
@@ -23,9 +23,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2 text-lg font-bold text-slate-900">
-          <span className="grid size-9 place-items-center rounded-xl bg-teal-600 text-white">
-            <HeartPulse size={20} />
-          </span>
+          <img src="/medicontinuum-logo.png" alt="" className="size-9 rounded-xl object-cover" />
           MediContinuum
         </Link>
 
