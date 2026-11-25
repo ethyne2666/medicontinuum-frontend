@@ -16,6 +16,7 @@ export const router = createBrowserRouter([
       { path: 'register/done', ...page(() => import('@/pages/Registered')) },
       { path: 'signup', ...page(() => import('@/pages/Signup')) },
       { path: 'login', ...page(() => import('@/pages/Login')) },
+      { path: 'demo', ...page(() => import('@/pages/Demo')) },
       {
         path: 'portal',
         element: <PortalLayout />,
