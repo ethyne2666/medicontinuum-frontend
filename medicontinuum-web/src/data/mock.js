@@ -1,6 +1,6 @@
 // Demo data for the patient site. (The original file in the repo only exported IMG/avatar, which broke every
 // page that imports DOSES, MEDICINES, INVENTORY …; this restores the full set.)
-// Images are inline SVG, so nothing depends on an external image host.
+// Illustrations are inline SVG; the patient home hero uses a local public image.
 
 // ---------- art ----------
 const svgUri = (inner, a, b) =>
@@ -17,9 +17,9 @@ const cross = (x, y, s, o) =>
   `<g fill='white' fill-opacity='${o}'><rect x='${x - s / 6}' y='${y - s / 2}' width='${s / 3}' height='${s}' rx='${s / 10}'/><rect x='${x - s / 2}' y='${y - s / 6}' width='${s}' height='${s / 3}' rx='${s / 10}'/></g>`;
 
 export const IMG = {
-  hero: svgUri(circles([[620, 140, 220, 0.12], [700, 380, 160, 0.1], [140, 420, 120, 0.1]]) + cross(560, 250, 190, 0.85), '#0f766e', '#38bdf8'),
+  hero: '/medicine-hero.png',
   auth: svgUri(circles([[200, 120, 200, 0.1], [650, 400, 220, 0.1]]) + cross(400, 250, 170, 0.8), '#115e59', '#0e7490'),
-  family: svgUri(circles([[260, 250, 90, 0.9], [400, 230, 110, 0.95], [550, 260, 80, 0.85], [400, 400, 210, 0.2]]), '#0d9488', '#a7f3d0'),
+  family: '/family-photo.png',
   pills: svgUri(capsule(250, 200, -25, '#fb7185', '#fff') + capsule(520, 280, 30, '#38bdf8', '#fff') + capsule(330, 380, 10, '#fbbf24', '#fff') + circles([[600, 110, 70, 0.7], [140, 380, 50, 0.6]]), '#134e4a', '#0f766e'),
   vendor: svgUri(cross(400, 240, 200, 0.9) + circles([[110, 90, 80, 0.12], [700, 420, 120, 0.12]]), '#0369a1', '#38bdf8'),
 };
